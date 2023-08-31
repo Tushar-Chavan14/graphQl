@@ -1,0 +1,53 @@
+type Course {
+  id: ID
+  title: String!
+  category: String!
+  segments: Int!
+  tutorsId: Int!
+  Tutor: Tutor!
+  reviews: [Review]
+}
+
+type Tutor {
+  id: ID
+  firstName: String!
+  lastName: String!
+  verified: Boolean!
+  Course: [Course!]
+}
+
+type Review {
+  id: ID
+  ratings: Int!
+  comment: String
+  Course: [Course!]
+}
+
+type Query {
+  Reviews: [Review]
+  Review(id: ID!): Review
+  Tutors: [Tutor]
+  Tutor(id: ID!): Tutor
+  Courses: [Course]
+  Course(id: ID!): Course
+}
+
+type Mutation {
+  addCourse(data: CourseInput!): Course
+  updateCourse(id: ID!, data: CourseUpdate): Course
+  deleteCourse(id: ID!): [Course!]
+}
+
+input CourseInput {
+  title: String!
+  category: String!
+  segments: Int!
+  tutorsId: Int!
+}
+
+input CourseUpdate {
+  title: String
+  category: String
+  segments: Int
+  tutorsId: Int
+}
